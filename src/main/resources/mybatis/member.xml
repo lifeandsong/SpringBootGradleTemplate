@@ -14,7 +14,7 @@
 
     <select id="list" parameterType="Member" resultType="Member">
         SELECT id, name
-            FROM Memberused
+            FROM Member
             WHERE 1 = 1
                 <if test="name != null">AND name LIKE CONCAT('%', #{name}, '%')</if>
                 <if test="used != null">AND used = #{used}</if>
