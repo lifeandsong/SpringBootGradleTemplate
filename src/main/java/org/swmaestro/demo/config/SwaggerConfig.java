@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @since	2022-06-29
  * @author	ywkim
  */
-@Profile({"dev","local"})
+// @Profile({ "dev", "local" })
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {

@@ -9,6 +9,7 @@ server:
     whitelabel:
       enabled: false
 spring:
+  #Mariadb
   datasource:
     url: jdbc:mariadb://localhost:3306/[접속할 DB명]?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true&socketTimeout=10000&connectTimeout=10000
     username: [DB 아이디]
@@ -35,13 +36,3 @@ logging.level:
   org.hibernate:
     SQL: debug
   org.swmaestro.demo: debug
-
-# logging.level:
-#   root: warn
-#   org.springframework:
-#     web: warn
-#     security: warn
-#     boot: warn
-#   org.hibernate:
-#     SQL: warn
-#   org.swmaestro.demo: warn
