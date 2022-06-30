@@ -20,13 +20,14 @@ repositories {
 
 dependencies {
 
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation ('org.springframework.boot:spring-boot-starter-web') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
     implementation ('org.springframework.boot:spring-boot-starter-undertow') {
         exclude group: "io.undertow", module: "undertow-websockets-jsr"
     }
+
+    //    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
@@ -37,19 +38,12 @@ dependencies {
     // https://mvnrepository.com/artifact/junit/junit
     implementation 'junit:junit:4.13.2'
 
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+
     // https://swagger.io/tools/swagger-ui/
     // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
-
-    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
-    implementation 'io.springfox:springfox-swagger2:3.0.0'
-
-    // java.lang.NumberFormatException: For input string: "" 방지
-    // https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations
-    implementation 'io.swagger.core.v3:swagger-annotations:2.1.13'
-
-    // https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-models
-    implementation 'io.swagger.core.v3:swagger-models:2.1.13'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // testImplementation 'org.springframework.security:spring-security-test'
