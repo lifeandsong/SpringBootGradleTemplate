@@ -1,0 +1,68 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.1'
+   	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+   	id 'java'
+}
+
+group = 'org.swmaestro.dem'
+version = ''
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation ('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    implementation ('org.springframework.boot:spring-boot-starter-undertow') {
+        exclude group: "io.undertow", module: "undertow-websockets-jsr"
+    }
+
+    // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+
+    // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.5'
+
+    // https://mvnrepository.com/artifact/junit/junit
+    implementation 'junit:junit:4.13.2'
+
+    // https://swagger.io/tools/swagger-ui/
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+    implementation 'io.springfox:springfox-swagger2:3.0.0'
+
+    // java.lang.NumberFormatException: For input string: "" 방지
+    // https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations
+    implementation 'io.swagger.core.v3:swagger-annotations:2.1.13'
+
+    // https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-models
+    implementation 'io.swagger.core.v3:swagger-models:2.1.13'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // testImplementation 'org.springframework.security:spring-security-test'
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools
+    implementation 'org.springframework.boot:spring-boot-devtools:2.6.6'
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    compileOnly 'org.projectlombok:lombok'
+   	annotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

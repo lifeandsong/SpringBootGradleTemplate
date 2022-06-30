@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.swmaestro.demo.mapper.MemberMapper">
+
+    <insert id="create" parameterType="Member">
+        INSERT INTO Member
+            (id, password, name)
+        VALUES
+            (#{id}, #{password}, #{name})
+    </insert>
+
+    <select id="list" parameterType="Member" resultType="Member">
+        SELECT id, name
+            FROM Memberused
+            WHERE 1 = 1
+                <if test="name != null">AND name LIKE CONCAT('%', #{name}, '%')</if>
+                <if test="used != null">AND used = #{used}</if>
+            ORDER BY createdAt DESC
+    </select>
+
+    <select id="read" parameterType="string" resultType="Member">
+        SELECT id, name, used
+            FROM Member
+            WHERE id = #{id}
+    </select>
+
+    <update id="update" parameterType="string">
+        UPDATE Member SET
+            password = #{password},
+            name = #{name}
+            WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        UPDATE Member SET
+            used = 'N'
+            WHERE id = #{id}
+    </delete>
+
+</mapper>
