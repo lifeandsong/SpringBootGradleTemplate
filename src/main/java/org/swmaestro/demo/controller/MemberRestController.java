@@ -111,9 +111,9 @@ public class MemberRestController extends BaseRestController {
     @GetMapping("")
     @Auth
     @ApiOperation(value = "회원 목록 조회", notes = "회원 목록을 조회한다.", httpMethod = "GET", response = ResponseEntity.class, consumes = "application/json", tags = {})
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "member", value = "검색할 회원 정보", required = false, dataType = "Member", paramType = "body")
-    })
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "member", value = "검색할 회원 정보", required = false, dataType = "Member", paramType = "body")
+//    })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "status_code = 0, message = ok / status_code = -1, message = error / status_code = -99, message = Not Exist Required Param"),
             @ApiResponse(code = 401, message = "Unauthorized"),
@@ -121,16 +121,14 @@ public class MemberRestController extends BaseRestController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")
     })
-    public ResponseEntity<?> list(@RequestParam(required = false) Member member) {
+    public ResponseEntity<?> list() {
+//    public ResponseEntity<?> list(@RequestParam(required = false) Member member) {
+        log.info("list");
 
         // 1. Validation
-        if (member == null)
-            member = new Member();
-
-        log.info("list: member={}", member.toString());
 
         // 2. Business Logic
-        List<Member> list = memberService.list(member);
+        List<Member> list = memberService.list();
         if (list == null)
             list = new ArrayList<Member>();
 

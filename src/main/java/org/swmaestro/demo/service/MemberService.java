@@ -49,11 +49,11 @@ public class MemberService {
         return member;
     }
 
-    public List<Member> list(Member member) {
+    public List<Member> list() {
         List<Member> list = null;
 
         try {
-            list = memberMapper.list(member);
+            list = memberMapper.list();
         } catch(Exception e) {
             log.error(e.getMessage());
         }

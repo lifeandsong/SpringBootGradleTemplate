@@ -12,12 +12,9 @@
             (#{id}, #{password}, #{name})
     </insert>
 
-    <select id="list" parameterType="Member" resultType="Member">
+    <select id="list" resultType="Member">
         SELECT id, name
             FROM Member
-            WHERE 1 = 1
-                <if test="name != null">AND name LIKE CONCAT('%', #{name}, '%')</if>
-                <if test="used != null">AND used = #{used}</if>
             ORDER BY createdAt DESC
     </select>
 

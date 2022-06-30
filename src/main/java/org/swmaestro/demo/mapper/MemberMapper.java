@@ -16,7 +16,7 @@ public interface MemberMapper {
 
     int create(Member member);
     Member read(String id);
-    List<Member> list(Member member);
+    List<Member> list();
     int update(Member member);
     int delete(String id);
 
