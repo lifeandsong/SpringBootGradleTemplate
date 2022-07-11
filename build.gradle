@@ -4,7 +4,7 @@ plugins {
    	id 'java'
 }
 
-group = 'org.swmaestro.dem'
+group = 'org.swmaestro.demo'
 version = ''
 sourceCompatibility = '11'
 

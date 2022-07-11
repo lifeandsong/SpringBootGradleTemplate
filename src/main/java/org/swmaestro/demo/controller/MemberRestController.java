@@ -50,15 +50,14 @@ public class MemberRestController extends BaseRestController {
 
         // 1. Validation
         if (member == null) {
-            log.info("create: member=null");
-            log.info("createdCount=0");
-            return getErrorResponse("Fail to create a new member.");
+            log.warn("create: Fail to create a new member; member=null, createdCount=0");
+            return ResponseEntity.badRequest().build();
         }
 
         log.info("create: member={}", member.toString());
         if (! StringUtils.hasLength(member.getId())) {
-            log.info("createdCount=0");
-            return getErrorResponse("Fail to create a new member.");
+            log.warn("Fail to create a new member; createdCount=0");
+            return ResponseEntity.badRequest().build();
         }
 
         // 2. Business Logic
@@ -70,7 +69,7 @@ public class MemberRestController extends BaseRestController {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("createdCount", createdCount);
         log.info("resultMap={}", resultMap.toString());
-        return getOkResponse(resultMap);
+        return ResponseEntity.ok(member);
     }
 
     @GetMapping("/{id}")
@@ -91,21 +90,20 @@ public class MemberRestController extends BaseRestController {
 
         // 1. Validation
         if (! StringUtils.hasLength(id)) {
-            log.info("member=null");
-            return getErrorResponse("Fail to read a member.");
+            log.warn("Fail to read a member; member=null");
+            return ResponseEntity.badRequest().build();
         }
 
         // 2. Business Logic
         Member member = memberService.read(id);
         if (member == null) {
-            log.info("member = null");
-            return getErrorResponse("Fail to read a member.");
+            log.warn("Fail to read a member; member=null");
+            return ResponseEntity.badRequest().build();
         }
 
         // 3. Make Response
         log.info("member={}", member.toString());
-        return getOkResponse(member);
-
+        return ResponseEntity.ok(member);
     }
 
     @GetMapping("")
@@ -134,7 +132,7 @@ public class MemberRestController extends BaseRestController {
 
         // 3. Make Response
         log.info("list.size={}", list.size());
-        return getOkListResponse(list);
+        return ResponseEntity.ok(list);
     }
 
     @PutMapping("/{id}")
@@ -158,8 +156,8 @@ public class MemberRestController extends BaseRestController {
 
         // 1. Validation
         if (! StringUtils.hasLength(id)) {
-            log.info("updatedCount=0");
-            return getErrorResponse("Fail to update a member.");
+            log.warn("Fail to update a member; updatedCount=0");
+            return ResponseEntity.badRequest().build();
         }
 
         // 2. Business Logic
@@ -170,7 +168,7 @@ public class MemberRestController extends BaseRestController {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("updatedCount", updatedCount);
         log.info("resultMap={}", resultMap.toString());
-        return getOkResponse(resultMap);
+        return ResponseEntity.ok(resultMap);
     }
 
     @DeleteMapping("/{id}")
@@ -191,8 +189,8 @@ public class MemberRestController extends BaseRestController {
 
         // 1. Validation
         if (! StringUtils.hasLength(id)) {
-            log.info("deletedCount=0");
-            return getErrorResponse("Fail to delete a member.");
+            log.warn("Fail to delete a member; deletedCount=0");
+            return ResponseEntity.badRequest().build();
         }
 
         // 2. Business Logic
@@ -202,7 +200,7 @@ public class MemberRestController extends BaseRestController {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("deletedCount", deletedCount);
         log.info("resultMap={}", resultMap.toString());
-        return getOkResponse(resultMap);
+        return ResponseEntity.ok(resultMap);
     }
 
 }
