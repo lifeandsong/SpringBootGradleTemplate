@@ -13,13 +13,13 @@
     </insert>
 
     <select id="read" parameterType="string" resultType="Member">
-        SELECT id, name, email, phone, creator, createdAt, updater, updatedAt
+        SELECT id, name, email, phone, used, creator, createdAt, updater, updatedAt
             FROM Member
             WHERE id = #{id}
     </select>
 
     <select id="list" parameterType="Member" resultType="Member">
-        SELECT id, name, email, phone, creator, createdAt, updater, updatedAt
+        SELECT id, name, email, phone, used, creator, createdAt, updater, updatedAt
             FROM Member
             WHERE 1 = 1
             <if test="name != null">AND name = #{name}</if>
@@ -35,6 +35,7 @@
             <if test="name != null">, name = #{name}</if>
             <if test="email != null">, email = #{email}</if>
             <if test="phone != null">, phone = #{phone}</if>
+            <if test="used != null">, used = #{used}</if>
             WHERE id = #{id}
     </update>
 
