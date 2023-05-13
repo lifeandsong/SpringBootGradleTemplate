@@ -33,4 +33,3 @@ EXPOSE 8080
 
 # jar 파일 실행
 ENTRYPOINT ["java", "-jar","/SpringBootGradleTemplate.jar"]
-# ENTRYPOINT ["java", "-jar","/fems.jar"]

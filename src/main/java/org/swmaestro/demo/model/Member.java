@@ -26,4 +26,10 @@ public class Member extends BaseModel {
     @ApiModelProperty(value = "이름", example = "홍길동")
     private String name;
 
+    @ApiModelProperty(value = "이메일", example = "email@company.com")
+    private String email;
+
+    @ApiModelProperty(value = "전화번호", example = "010-0000-0000")
+    private String phone;
+
 }

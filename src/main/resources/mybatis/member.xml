@@ -7,27 +7,34 @@
 
     <insert id="create" parameterType="Member">
         INSERT INTO Member
-            (id, password, name)
+            (id, password, name, email, phone, creator, updater)
         VALUES
-            (#{id}, #{password}, #{name})
+            (#{id}, #{password}, #{name}, #{email}, #{phone}, #{creator}, #{updater})
     </insert>
 
-    <select id="list" resultType="Member">
-        SELECT id, name
-            FROM Member
-            ORDER BY createdAt DESC
-    </select>
-
     <select id="read" parameterType="string" resultType="Member">
-        SELECT id, name, used
+        SELECT id, name, email, phone, creator, createdAt, updater, updatedAt
             FROM Member
             WHERE id = #{id}
     </select>
 
-    <update id="update" parameterType="string">
+    <select id="list" parameterType="Member" resultType="Member">
+        SELECT id, name, email, phone, creator, createdAt, updater, updatedAt
+            FROM Member
+            WHERE 1 = 1
+            <if test="name != null">AND name = #{name}</if>
+            <if test="email != null">AND email = #{email}</if>
+            <if test="phone != null">AND phone = #{phone}</if>
+            ORDER BY createdAt DESC
+    </select>
+
+    <update id="update" parameterType="Member">
         UPDATE Member SET
-            password = #{password},
-            name = #{name}
+            updater = #{updater}
+            <if test="password != null">, password = #{password}</if>
+            <if test="name != null">, name = #{name}</if>
+            <if test="email != null">, email = #{email}</if>
+            <if test="phone != null">, phone = #{phone}</if>
             WHERE id = #{id}
     </update>
 

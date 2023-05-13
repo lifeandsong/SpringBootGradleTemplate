@@ -1,6 +1,7 @@
 package org.swmaestro.demo.controller;
 
 import io.swagger.annotations.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/members")
+//@RequiredArgsConstructor
 @Slf4j
 public class MemberRestController extends BaseRestController {
 
@@ -54,7 +56,7 @@ public class MemberRestController extends BaseRestController {
             return ResponseEntity.badRequest().build();
         }
 
-        log.info("create: member={}", member.toString());
+        log.info("create: member={}", member);
         if (! StringUtils.hasLength(member.getId())) {
             log.warn("Fail to create a new member; createdCount=0");
             return ResponseEntity.badRequest().build();
@@ -68,8 +70,8 @@ public class MemberRestController extends BaseRestController {
         // 3. Make Response
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("createdCount", createdCount);
-        log.info("resultMap={}", resultMap.toString());
-        return ResponseEntity.ok(member);
+        log.info("resultMap={}", resultMap);
+        return ResponseEntity.ok(resultMap);
     }
 
     @GetMapping("/{id}")
@@ -102,7 +104,7 @@ public class MemberRestController extends BaseRestController {
         }
 
         // 3. Make Response
-        log.info("member={}", member.toString());
+        log.info("member={}", member);
         return ResponseEntity.ok(member);
     }
 
@@ -119,14 +121,29 @@ public class MemberRestController extends BaseRestController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")
     })
-    public ResponseEntity<?> list() {
-//    public ResponseEntity<?> list(@RequestParam(required = false) Member member) {
-        log.info("list");
+//    public ResponseEntity<?> list() {
+    public ResponseEntity<?> list(@RequestParam(required = false) Map<String, Object> param) {
+        if (param == null)
+            param = new HashMap<String, Object>();
+
+        log.info("list; param={}");
 
         // 1. Validation
 
         // 2. Business Logic
-        List<Member> list = memberService.list();
+        Member member = new Member();
+        if (param != null) {
+            if (param.get("name") != null)
+                member.setName(String.valueOf(param.get("name")));
+
+            if (param.get("email") != null)
+                member.setEmail(String.valueOf(param.get("email")));
+
+            if (param.get("phone") != null)
+                member.setPhone(String.valueOf(param.get("phone")));
+        }
+
+        List<Member> list = memberService.list(member);
         if (list == null)
             list = new ArrayList<Member>();
 
@@ -167,7 +184,7 @@ public class MemberRestController extends BaseRestController {
         // 3. Make Response
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("updatedCount", updatedCount);
-        log.info("resultMap={}", resultMap.toString());
+        log.info("resultMap={}", resultMap);
         return ResponseEntity.ok(resultMap);
     }
 
@@ -199,7 +216,7 @@ public class MemberRestController extends BaseRestController {
         // 3. Make Response
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("deletedCount", deletedCount);
-        log.info("resultMap={}", resultMap.toString());
+        log.info("resultMap={}", resultMap);
         return ResponseEntity.ok(resultMap);
     }
 
